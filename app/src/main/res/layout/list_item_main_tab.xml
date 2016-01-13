@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/spacing_tiny">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/height_main_tab_image"
+        android:layout_gravity="center_horizontal"
+        tools:ignore="contentDescription"
+        tools:src="@drawable/list_item_default" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/spacing_tiny">
+
+        <TextView
+            android:id="@+id/paintingNameText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_big"
+            tools:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/ageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/paintingNameText"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/authorText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/ageText"
+            android:layout_marginLeft="@dimen/spacing_tiny"
+            android:layout_toRightOf="@+id/ageText"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="@string/app_name" />
+
+        <TextView
+            android:id="@+id/resourceLevelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/ageText"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="@string/app_name" />
+    </RelativeLayout>
+</LinearLayout>
