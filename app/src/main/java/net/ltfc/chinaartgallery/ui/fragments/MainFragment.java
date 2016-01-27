@@ -41,7 +41,7 @@ public class MainFragment extends BaseFragment implements MainView {
         mainPresenter = new MainPresenter(this);
         mainPresenter.create();
         mainPresenter.loadTabList();
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 
     @Override
@@ -53,6 +53,7 @@ public class MainFragment extends BaseFragment implements MainView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        mainPresenter.destroy();
         ButterKnife.unbind(this);
     }
 

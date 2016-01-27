@@ -1,6 +1,5 @@
 package net.ltfc.chinaartgallery.ui.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -58,7 +57,7 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.d("onCreateView", category);
-        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         ButterKnife.bind(this, view);
         swipeRefresh.setOnRefreshListener(this);
         recyclerView.setHasFixedSize(true);
