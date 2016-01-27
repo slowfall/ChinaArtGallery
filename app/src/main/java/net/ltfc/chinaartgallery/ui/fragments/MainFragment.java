@@ -1,21 +1,19 @@
-package net.ltfc.chinaartgallery.ui.activities;
+package net.ltfc.chinaartgallery.ui.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.model.entities.MainTab;
 import net.ltfc.chinaartgallery.presenter.MainPresenter;
-import net.ltfc.chinaartgallery.ui.common.StatusBarCompat;
-import net.ltfc.chinaartgallery.ui.fragments.GalleryFragment;
 import net.ltfc.chinaartgallery.ui.views.MainView;
 
 import java.util.ArrayList;
@@ -24,43 +22,26 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends BaseActivity implements MainView {
+public class MainFragment extends BaseFragment implements MainView {
 
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+    ViewPagerAdapter viewPagerAdapter;
+    MainPresenter mainPresenter;
     @Bind(R.id.tabLayout)
     TabLayout tabLayout;
     @Bind(R.id.viewPager)
     ViewPager viewPager;
-    ViewPagerAdapter viewPagerAdapter;
-    MainPresenter mainPresenter;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
+        ButterKnife.bind(this, view);
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
-        StatusBarCompat.compat(this, getResources().getColor(R.color.colorPrimaryDark));
-
         mainPresenter = new MainPresenter(this);
         mainPresenter.create();
         mainPresenter.loadTabList();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    protected void onDestroy() {
-        mainPresenter.destroy();
-        super.onDestroy();
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
@@ -70,8 +51,9 @@ public class MainActivity extends BaseActivity implements MainView {
     }
 
     @Override
-    public Context getContext() {
-        return getApplicationContext();
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 
     private static class ViewPagerAdapter extends FragmentStatePagerAdapter {

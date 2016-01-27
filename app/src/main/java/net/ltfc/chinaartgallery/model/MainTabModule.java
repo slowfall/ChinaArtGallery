@@ -10,7 +10,7 @@ import com.google.gson.reflect.TypeToken;
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.common.Utils;
 import net.ltfc.chinaartgallery.event.GalleryEvent;
-import net.ltfc.chinaartgallery.event.MainGetTabListEvent;
+import net.ltfc.chinaartgallery.event.MainEvent;
 import net.ltfc.chinaartgallery.model.entities.MainTab;
 
 import java.lang.reflect.Type;
@@ -37,7 +37,7 @@ public class MainTabModule {
                 Type type = new TypeToken<List<MainTab>>() {
                 }.getType();
                 List<MainTab> tabList = gson.fromJson(Utils.readRawFile(context, R.raw.main), type);
-                final GalleryEvent<List<MainTab>> event = new GalleryEvent<>(tabList);
+                final MainEvent event = new MainEvent(tabList);
                 Handler handler = new Handler(Looper.getMainLooper());
                 handler.post(new Runnable() {
                     @Override

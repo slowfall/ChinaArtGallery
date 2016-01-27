@@ -7,10 +7,10 @@ import java.util.List;
 /**
  * Created by zack on 2016/1/9.
  */
-public class MainGetTabListEvent {
+public class MainEvent {
     List<MainTab> tabList;
 
-    public MainGetTabListEvent(List<MainTab> tabList) {
+    public MainEvent(List<MainTab> tabList) {
         this.tabList = tabList;
     }
 
