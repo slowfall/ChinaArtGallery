@@ -11,7 +11,7 @@ import retrofit2.http.Path;
 /**
  * Created by zack on 2016/1/12.
  */
-public interface GalleryServerAPI {
+public interface CAGServerAPI {
     @GET("/api/{category}")
     Call<List<Painting>> getPaintingList(
             @Path("category") String category);
@@ -28,6 +28,6 @@ public interface GalleryServerAPI {
     @GET("/cagstore/outline.json")
     Call<List<Painting>> getCagstoreOutline();
 
-    @GET("/api/hotserach")
-    Call<List<Painting>> getHotSearchKeys();
+    @GET("/api/hotsearch")
+    Call<List<String>> getHotSearchKeys();
 }

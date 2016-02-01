@@ -6,4 +6,7 @@
     <dimen name="spacing_tiny">5dp</dimen>
     <dimen name="spacing_large">72dp</dimen>
     <dimen name="height_main_tab_image">96dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+    <dimen name="toolbar_elevation_default">4dp</dimen>
+    <dimen name="toolbar_elevation_zero">0dp</dimen>
 </resources>

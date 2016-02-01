@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.model.entities.Painting;
-import net.ltfc.chinaartgallery.model.rest.GalleryServerURL;
+import net.ltfc.chinaartgallery.model.rest.CAGServerURL;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class PaintingListAdapter extends RecyclerView.Adapter<PaintingListAdapte
 
     @Override
     public PaintingListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_main_tab, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_main_tab_item, parent, false);
         ViewHolder holder = new ViewHolder(v);
         this.context = parent.getContext();
         return holder;
@@ -49,7 +49,7 @@ public class PaintingListAdapter extends RecyclerView.Adapter<PaintingListAdapte
     public void onBindViewHolder(PaintingListAdapter.ViewHolder holder, int position) {
         Painting painting = paintingList.get(position);
         Glide.with(context)
-                .load(GalleryServerURL.getPaintingThumbnialURL(painting.get_id()))
+                .load(CAGServerURL.getPaintingThumbnialURL(painting.get_id()))
                 .into(holder.imageView);
         holder.paintingNameText.setText(painting.getPaintingName());
         holder.ageText.setText(painting.getAge());

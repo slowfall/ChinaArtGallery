@@ -1,26 +1,30 @@
 package net.ltfc.chinaartgallery.event;
 
+import net.ltfc.chinaartgallery.model.entities.Painting;
+
+import java.util.List;
+
 /**
  * Created by zack on 2016/1/12.
  */
-public class GalleryEvent<T> {
+public class GalleryEvent {
     private String flag;
-    private T object;
+    private List<Painting> paintingList;
 
-    public GalleryEvent(T object) {
+    public GalleryEvent(List<Painting> object) {
         this(null, object);
     }
 
-    public GalleryEvent(String flag, T object) {
+    public GalleryEvent(String flag, List<Painting> object) {
         this.flag = flag;
-        this.object = object;
+        this.paintingList = object;
     }
 
     public String getFlag() {
         return flag;
     }
 
-    public T getObject() {
-        return object;
+    public List<Painting> getPaintingList() {
+        return paintingList;
     }
 }

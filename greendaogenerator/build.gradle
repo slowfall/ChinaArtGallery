@@ -1,0 +1,10 @@
+apply plugin: 'application'
+apply plugin: 'java'
+
+mainClassName = "com.ltfc.GreenDaoGenerator"
+
+dependencies {
+    compile 'de.greenrobot:greendao-generator:2.1.0'
+    compile 'org.freemarker:freemarker:2.3.23'
+    compile 'de.greenrobot:greendao:2.1.0'
+}

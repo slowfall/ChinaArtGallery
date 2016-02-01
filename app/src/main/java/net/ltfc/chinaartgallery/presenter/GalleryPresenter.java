@@ -3,11 +3,8 @@ package net.ltfc.chinaartgallery.presenter;
 import android.util.Log;
 
 import net.ltfc.chinaartgallery.event.GalleryEvent;
-import net.ltfc.chinaartgallery.model.entities.Painting;
-import net.ltfc.chinaartgallery.model.rest.GallerySource;
+import net.ltfc.chinaartgallery.model.rest.CAGSource;
 import net.ltfc.chinaartgallery.ui.views.GalleryView;
-
-import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
@@ -17,12 +14,12 @@ import de.greenrobot.event.Subscribe;
  */
 public class GalleryPresenter implements Presenter {
     private GalleryView galleryView;
-    private GallerySource gallerySource;
+    private CAGSource cagSource;
     private String flag;
 
     public GalleryPresenter(GalleryView galleryView) {
         this.galleryView = galleryView;
-        gallerySource = new GallerySource();
+        cagSource = new CAGSource();
     }
 
     @Override
@@ -39,14 +36,14 @@ public class GalleryPresenter implements Presenter {
     public void loadPaintingList(String category) {
         flag = category;
         galleryView.onLoading();
-        gallerySource.getPaintingList(category);
+        cagSource.getPaintingList(category);
     }
 
     @Subscribe
-    public void onEvent(GalleryEvent<List<Painting>> galleryEvent) {
+    public void onEvent(GalleryEvent galleryEvent) {
         Log.d("onEvent", "flag:" + flag + ", galleryEvent.getFlag:" + galleryEvent.getFlag());
         if (flag == galleryEvent.getFlag()) {
-            galleryView.onLoaded(galleryEvent.getObject());
+            galleryView.onLoaded(galleryEvent.getPaintingList());
         }
     }
 }

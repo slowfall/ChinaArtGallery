@@ -32,7 +32,6 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
     PaintingListAdapter paintingListAdapter;
     private String category;
     private GalleryPresenter galleryPresenter;
-    private boolean isShownToUser = false;
 
     public static GalleryFragment newInstance(String category) {
         GalleryFragment fragment = new GalleryFragment();
@@ -49,8 +48,6 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
         }
-        galleryPresenter = new GalleryPresenter(this);
-        galleryPresenter.create();
     }
 
     @Override
@@ -61,23 +58,24 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
         ButterKnife.bind(this, view);
         swipeRefresh.setOnRefreshListener(this);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
         paintingListAdapter = new PaintingListAdapter();
         recyclerView.setAdapter(paintingListAdapter);
+        galleryPresenter = new GalleryPresenter(this);
+        galleryPresenter.create();
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (!isShownToUser) {
-            setUserVisibleHint(true);
-        }
+        Log.d("onResume", category);
+        setUserVisibleHint(true);
     }
 
     @Override
     public void onDestroyView() {
+        Log.d("onDestroyView", category);
         galleryPresenter.destroy();
         ButterKnife.unbind(this);
         super.onDestroyView();
@@ -85,11 +83,11 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        Log.d("setUserVisibleHint", "isVisibleToUser:" + isVisibleToUser);
+        Log.d("setUserVisibleHint", category + ", isVisibleToUser:" + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
-        if (!isShownToUser && isVisibleToUser && isVisible()) {
-            Log.d("setUserVisibleHint", "isShownToUser:" + isShownToUser);
-            isShownToUser = true;
+        if (paintingListAdapter != null && paintingListAdapter.getItemCount() == 0
+                && isVisibleToUser && isVisible()) {
+            Log.d("setUserVisibleHint", category + " is loading.");
             galleryPresenter.loadPaintingList(category);
         }
     }

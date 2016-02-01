@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:name="net.ltfc.chinaartgallery.ui.fragments.SearchFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="net.ltfc.chinaartgallery.ui.fragments.SearchFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchHistoryView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/list_search_suggestion_item" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/searchHotView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/list_search_suggestion_item" />
+    </LinearLayout>
+</RelativeLayout>

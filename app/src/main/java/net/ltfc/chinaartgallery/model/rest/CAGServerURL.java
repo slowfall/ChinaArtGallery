@@ -3,7 +3,7 @@ package net.ltfc.chinaartgallery.model.rest;
 /**
  * Created by zack on 2016/1/12.
  */
-public class GalleryServerURL {
+public class CAGServerURL {
     public static final String BASE_URL = "http://ltfc.net";
     public static final String QINIUDN_BASE_URL = "http://supperdetailpainter.u.qiniudn.com";
     public static String getPaintingOutlineURL(String age, String author, String paintingName) {
