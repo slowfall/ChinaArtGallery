@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import net.ltfc.chinaartgallery.R;
@@ -18,11 +19,13 @@ import butterknife.ButterKnife;
  * Created by zack on 2016/1/29.
  */
 public class SearchSuggestionRecyclerViewAdapter extends RecyclerView.Adapter<SearchSuggestionRecyclerViewAdapter.ViewHolder> {
-    private final SearchView mListener;
+    private final String listType;
+    private final SearchView listener;
     private List<String> searchSuggestionList = new ArrayList<>();
 
-    public SearchSuggestionRecyclerViewAdapter(SearchView listener) {
-        mListener = listener;
+    public SearchSuggestionRecyclerViewAdapter(String listType, SearchView listener) {
+        this.listType = listType;
+        this.listener = listener;
     }
 
     public void setSearchSuggestionList(List<String> searchSuggestionList) {
@@ -42,14 +45,18 @@ public class SearchSuggestionRecyclerViewAdapter extends RecyclerView.Adapter<Se
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.item = searchSuggestionList.get(position);
         holder.content.setText(holder.item);
-
+        if ("history".equals(listType)) {
+            holder.icon.setImageResource(R.drawable.ic_search_history);
+        } else if ("hot".equals(listType)) {
+            holder.icon.setImageResource(R.drawable.ic_search_hot);
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (null != mListener) {
+                if (null != listener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onSearchItemClick(holder.item);
+                    listener.onSearchItemClick(holder.item);
                 }
             }
         });
@@ -63,6 +70,8 @@ public class SearchSuggestionRecyclerViewAdapter extends RecyclerView.Adapter<Se
     public class ViewHolder extends RecyclerView.ViewHolder {
         @Bind(R.id.content)
         TextView content;
+        @Bind(R.id.icon)
+        ImageView icon;
         String item;
 
         public ViewHolder(View view) {

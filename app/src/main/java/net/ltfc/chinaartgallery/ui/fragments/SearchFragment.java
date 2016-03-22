@@ -41,10 +41,10 @@ public class SearchFragment extends Fragment implements SearchView {
         ButterKnife.bind(this, view);
         Context context = view.getContext();
         searchHistoryView.setLayoutManager(new LinearLayoutManager(context));
-        searchHistoryAdapter = new SearchSuggestionRecyclerViewAdapter(this);
+        searchHistoryAdapter = new SearchSuggestionRecyclerViewAdapter("history", this);
         searchHistoryView.setAdapter(searchHistoryAdapter);
         searchHotView.setLayoutManager(new LinearLayoutManager(context));
-        searchHotAdapter = new SearchSuggestionRecyclerViewAdapter(this);
+        searchHotAdapter = new SearchSuggestionRecyclerViewAdapter("hot", this);
         searchHotView.setAdapter(searchHotAdapter);
         searchPresenter = new SearchPresenter(this);
         searchPresenter.create();
