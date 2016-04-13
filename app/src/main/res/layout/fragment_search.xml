@@ -5,7 +5,7 @@
     android:name="net.ltfc.chinaartgallery.ui.fragments.SearchFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="net.ltfc.chinaartgallery.ui.fragments.SearchFragment">
+    tools:context=".search.view.SearchFragment">
 
     <LinearLayout
         android:layout_width="match_parent"

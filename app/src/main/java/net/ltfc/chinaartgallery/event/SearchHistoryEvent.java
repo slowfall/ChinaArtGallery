@@ -1,6 +1,6 @@
 package net.ltfc.chinaartgallery.event;
 
-import net.ltfc.chinaartgallery.model.db.SearchSuggestion;
+import net.ltfc.chinaartgallery.base.model.db.SearchSuggestion;
 
 import java.util.List;
 
