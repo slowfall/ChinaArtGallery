@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import net.ltfc.chinaartgallery.R;
-import net.ltfc.chinaartgallery.base.model.entities.Painting;
-import net.ltfc.chinaartgallery.base.model.rest.CAGServerURL;
+import net.ltfc.chinaartgallery.model.entities.Painting;
+import net.ltfc.chinaartgallery.model.rest.CAGServerURL;
 
 import java.util.ArrayList;
 import java.util.List;

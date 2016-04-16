@@ -2,28 +2,34 @@ package net.ltfc.chinaartgallery.search.presenter;
 
 import android.util.Log;
 
-import net.ltfc.chinaartgallery.base.model.rest.CAGSource;
+import net.ltfc.chinaartgallery.base.rx.BaseSubscriber;
+import net.ltfc.chinaartgallery.base.rx.OnNextListener;
+import net.ltfc.chinaartgallery.model.rest.CAGSource;
 import net.ltfc.chinaartgallery.base.presenter.Presenter;
 import net.ltfc.chinaartgallery.base.view.BaseView;
 import net.ltfc.chinaartgallery.event.SearchHotEvent;
 import net.ltfc.chinaartgallery.search.view.SearchView;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import de.greenrobot.event.EventBus;
 import de.greenrobot.event.Subscribe;
+import rx.Subscriber;
 
 /**
  * Created by zack on 2016/1/13.
  */
-public class SearchPresenter implements Presenter {
+public class SearchPresenter implements Presenter<SearchView> {
     private SearchView searchView;
+    private BaseSubscriber<List<String>> baseSubscriber;
     private CAGSource cagSource;
-    private String flag;
 
     @Inject
-    public SearchPresenter(CAGSource cagSource) {
+    public SearchPresenter(CAGSource cagSource, BaseSubscriber<List<String>> baseSubscriber) {
         this.cagSource = cagSource;
+        this.baseSubscriber = baseSubscriber;
     }
 
     @Override
@@ -32,13 +38,20 @@ public class SearchPresenter implements Presenter {
     }
 
     @Override
-    public void attachView(BaseView view) {
-        this.searchView = (SearchView) view;
+    public void attachView(SearchView view) {
+        this.searchView = view;
+        this.baseSubscriber.setOnNextListener(new OnNextListener<List<String>>() {
+
+            @Override
+            public void onNext(List<String> strings) {
+                searchView.onHotKeysLoaded(strings);
+            }
+        });
     }
 
     @Override
     public void destroy() {
-        EventBus.getDefault().unregister(this);
+        baseSubscriber.unsubscribe();
         searchView = null;
     }
 
@@ -47,7 +60,7 @@ public class SearchPresenter implements Presenter {
     }
 
     public void loadSearchHotList() {
-        cagSource.getHotSearchKeys();
+        cagSource.getHotSearchKeys(baseSubscriber);
     }
 
     @Subscribe

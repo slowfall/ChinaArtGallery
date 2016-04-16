@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,7 @@ import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.main.di.DaggerMainComponent;
 import net.ltfc.chinaartgallery.main.di.MainComponent;
 import net.ltfc.chinaartgallery.main.presenter.MainPresenter;
-import net.ltfc.chinaartgallery.base.model.entities.MainTab;
+import net.ltfc.chinaartgallery.model.entities.MainTab;
 import net.ltfc.chinaartgallery.base.view.BaseFragment;
 
 import java.util.List;
@@ -57,6 +58,7 @@ public class MainFragment extends BaseFragment implements MainView {
         ButterKnife.bind(this, view);
         viewPager.setAdapter(viewPagerAdapter);
         mainPresenter.create();
+        Log.d("onCreateView", "mainFragment");
         return view;
     }
 
@@ -64,9 +66,8 @@ public class MainFragment extends BaseFragment implements MainView {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mainPresenter.attachView(this);
-        if (savedInstanceState == null) {
-            mainPresenter.loadTabList();
-        }
+        mainPresenter.loadTabList();
+        Log.d("onViewCreated", "mainFragment");
     }
 
     @Override
@@ -78,8 +79,14 @@ public class MainFragment extends BaseFragment implements MainView {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mainPresenter.destroy();
+        Log.d("onDestroyView", "mainFragment");
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mainPresenter.destroy();
+        Log.d("onDestroy", "mainFragment");
+    }
 }

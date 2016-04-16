@@ -1,4 +1,4 @@
-package net.ltfc.chinaartgallery.base.model.rest;
+package net.ltfc.chinaartgallery.model.rest;
 
 /**
  * Created by zack on 2016/1/12.

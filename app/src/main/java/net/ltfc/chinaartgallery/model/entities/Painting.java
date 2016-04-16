@@ -1,4 +1,4 @@
-package net.ltfc.chinaartgallery.base.model.entities;
+package net.ltfc.chinaartgallery.model.entities;
 
 import java.util.List;
 

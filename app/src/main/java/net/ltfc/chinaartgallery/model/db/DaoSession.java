@@ -1,4 +1,4 @@
-package net.ltfc.chinaartgallery.base.model.db;
+package net.ltfc.chinaartgallery.model.db;
 
 import android.database.sqlite.SQLiteDatabase;
 

@@ -1,9 +1,11 @@
 package net.ltfc.chinaartgallery.main.di;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import net.ltfc.chinaartgallery.common.ToastUtils;
+import net.ltfc.chinaartgallery.base.rx.BaseSubscriber;
+import net.ltfc.chinaartgallery.model.entities.MainTab;
+import net.ltfc.chinaartgallery.model.entities.Painting;
 
-import net.ltfc.chinaartgallery.di.PerActivity;
+import java.util.List;
 
 import dagger.Module;
 import dagger.Provides;
@@ -13,6 +15,16 @@ import dagger.Provides;
  */
 @Module
 public class MainModule {
+
+    @Provides
+    BaseSubscriber<List<Painting>> providePaintingsSubscriber(ToastUtils toastUtils) {
+        return new BaseSubscriber<>(toastUtils);
+    }
+
+    @Provides
+    BaseSubscriber<List<MainTab>> provideMainTabsSubscriber(ToastUtils toastUtils) {
+        return new BaseSubscriber<>(toastUtils);
+    }
 //    private Fragment fragment;
 //
 //    public SearchModule(Fragment fragment) {

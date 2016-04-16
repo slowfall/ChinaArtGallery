@@ -2,6 +2,9 @@ package net.ltfc.chinaartgallery.di.components;
 
 import android.content.Context;
 
+import com.google.gson.Gson;
+
+import net.ltfc.chinaartgallery.common.ToastUtils;
 import net.ltfc.chinaartgallery.di.modules.ApplicationModule;
 import net.ltfc.chinaartgallery.base.view.BaseActivity;
 
@@ -15,5 +18,7 @@ import dagger.Component;
 @Singleton
 @Component(modules = {ApplicationModule.class})
 public interface ApplicationComponent {
-    Context context();
+    Context applicationContext();
+    Gson gson();
+    ToastUtils toastUtils();
 }
