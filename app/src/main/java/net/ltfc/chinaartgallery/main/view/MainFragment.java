@@ -45,6 +45,8 @@ public class MainFragment extends BaseFragment implements MainView {
                 .mainModule(getMainModule())
                 .build();
         mainComponent.inject(this);
+        mainPresenter.attachView(this);
+        Log.d("onCreate", "mainFragment");
     }
 
     @Override
@@ -57,6 +59,7 @@ public class MainFragment extends BaseFragment implements MainView {
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.bind(this, view);
         viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
         mainPresenter.create();
         Log.d("onCreateView", "mainFragment");
         return view;
@@ -65,13 +68,13 @@ public class MainFragment extends BaseFragment implements MainView {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mainPresenter.attachView(this);
         mainPresenter.loadTabList();
         Log.d("onViewCreated", "mainFragment");
     }
 
     @Override
     public void showTabs(List<MainTab> tabs) {
+        Log.d("showTabs", "mainFragment");
         viewPagerAdapter.setTabList(tabs);
         tabLayout.setupWithViewPager(viewPager);
     }
