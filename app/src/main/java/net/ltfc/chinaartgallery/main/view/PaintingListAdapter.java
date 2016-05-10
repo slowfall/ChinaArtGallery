@@ -41,7 +41,7 @@ public class PaintingListAdapter extends RecyclerView.Adapter<PaintingListAdapte
 
     @Override
     public PaintingListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_main_tab_item, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_gallery_item, parent, false);
         ViewHolder holder = new ViewHolder(v);
         this.context = parent.getContext();
         return holder;

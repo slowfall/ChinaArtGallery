@@ -26,7 +26,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity implements MenuItemCompat.OnActionExpandListener,
-        SearchView.OnQueryTextListener, SearchView.OnCloseListener {
+        SearchView.OnQueryTextListener, SearchView.OnCloseListener, SearchFragment.OnSearchKeyClickListener {
     private static final String BACK_STACK_PREFS = "main:prefs";
     @Bind(R.id.toolbar)
     Toolbar toolbar;
@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
     MenuItem searchMenuItem;
     MainFragment mainFragment;
     SearchFragment searchFragment;
-    private boolean needRevetToInitialFragment = false;
+    private boolean needRevertToInitialFragment = false;
 
     private ActivityComponent activityComponent;
 
@@ -107,7 +107,8 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
     public boolean onMenuItemActionCollapse(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
-                if (needRevetToInitialFragment) {
+                if (needRevertToInitialFragment) {
+                    needRevertToInitialFragment = false;
                     revertToInitialFragment();
                 }
                 break;
@@ -121,28 +122,31 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
         if (searchFragment != null) {
             return;
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            appBarLayout.setElevation(getResources().getDimension(R.dimen.toolbar_elevation_default));
-        }
         Fragment current = getSupportFragmentManager().findFragmentById(R.id.frameLayout);
         if (current != null && current instanceof SearchFragment) {
             searchFragment = (SearchFragment) current;
         } else {
             searchFragment = new SearchFragment();
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frameLayout, searchFragment);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                TransitionManager.beginDelayedTransition(frameLayout);
-            }
-            transaction.addToBackStack(MainActivity.BACK_STACK_PREFS);
-            transaction.commitAllowingStateLoss();
-            getSupportFragmentManager().executePendingTransactions();
+            switchToFragment(searchFragment);
         }
-        needRevetToInitialFragment = true;
+        needRevertToInitialFragment = true;
+    }
+
+    private void switchToFragment(Fragment fragment) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            appBarLayout.setElevation(getResources().getDimension(R.dimen.toolbar_elevation_default));
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, fragment);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            TransitionManager.beginDelayedTransition(frameLayout);
+        }
+        transaction.addToBackStack(MainActivity.BACK_STACK_PREFS);
+        transaction.commitAllowingStateLoss();
+        getSupportFragmentManager().executePendingTransactions();
     }
 
     private void revertToInitialFragment() {
-        needRevetToInitialFragment = false;
         searchFragment = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setElevation(getResources().getDimension(R.dimen.toolbar_elevation_zero));
@@ -156,17 +160,33 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        return false;
+        if (searchFragment != null) {
+            return searchFragment.onQueryTextSubmit(query);
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        return false;
+        if (searchFragment != null) {
+            return searchFragment.onQueryTextChange(newText);
+        } else {
+            return false;
+        }
     }
 
     @Override
     public boolean onClose() {
-        return false;
+        if (searchFragment != null) {
+            return searchFragment.onClose();
+        } else {
+            return false;
+        }
     }
 
+    @Override
+    public void onSearchKeyClick(String searchKey) {
+        searchView.setQuery(searchKey, true);
+    }
 }

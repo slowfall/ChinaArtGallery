@@ -9,14 +9,14 @@ public class GreenDaoGenerator {
     public static void main(String args[]) throws Exception {
         Schema schema = new Schema(DB_VERSION,"net.ltfc.chinaartgallery.model.db");
 
-        addSearchSuggestion(schema);
+        addSearchKey(schema);
         new DaoGenerator().generateAll(schema,"app/src/main/java");
     }
 
-    private static void addSearchSuggestion(Schema schema) {
-        Entity searchSuggestion = schema.addEntity("SearchSuggestion");
-        searchSuggestion.addIdProperty();
-        searchSuggestion.addStringProperty("key");
-        searchSuggestion.addDateProperty("date");
+    private static void addSearchKey(Schema schema) {
+        Entity searchKey = schema.addEntity("SearchKey");
+        searchKey.addIdProperty();
+        searchKey.addStringProperty("key");
+        searchKey.addDateProperty("date");
     }
 }

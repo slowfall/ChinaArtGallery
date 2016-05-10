@@ -2,8 +2,6 @@ package net.ltfc.chinaartgallery.base.rx;
 
 import net.ltfc.chinaartgallery.common.ToastUtils;
 
-import javax.inject.Inject;
-
 import rx.Subscriber;
 
 /**
@@ -15,16 +13,16 @@ public class BaseSubscriber<T> extends Subscriber<T> {
 
     public BaseSubscriber(ToastUtils toastUtils) {
         this.toastUtils = toastUtils;
-        onNextListener = null;
+        this.onNextListener = null;
+    }
+
+    public void setOnNextListener(OnNextListener<T> onNextListener) {
+        this.onNextListener = onNextListener;
     }
 
     @Override
     public void onCompleted() {
 
-    }
-
-    public void setOnNextListener(OnNextListener onNextListener) {
-        this.onNextListener = onNextListener;
     }
 
     @Override

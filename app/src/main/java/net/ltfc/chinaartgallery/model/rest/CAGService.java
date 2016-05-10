@@ -30,5 +30,5 @@ public interface CAGService {
     Observable<List<Painting>> getCagstoreOutline();
 
     @GET("/api/hotsearch")
-    Observable<List<String>> getHotSearchKeys();
+    Observable<List<String>> getSearchHotKeys();
 }

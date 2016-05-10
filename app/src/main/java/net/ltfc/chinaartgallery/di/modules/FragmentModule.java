@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import net.ltfc.chinaartgallery.di.PerActivity;
+import net.ltfc.chinaartgallery.di.PerFragment;
 
 import dagger.Module;
 import dagger.Provides;
@@ -20,13 +21,13 @@ public class FragmentModule {
     }
 
     @Provides
-    @PerActivity
+    @PerFragment
     Fragment provideFragment() {
         return this.fragment;
     }
 
     @Provides
-    @PerActivity
+    @PerFragment
     FragmentManager provideChildFragmentManager() {
         return this.fragment.getChildFragmentManager();
     }

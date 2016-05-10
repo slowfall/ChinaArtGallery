@@ -1,6 +1,7 @@
 package net.ltfc.chinaartgallery.search.view;
 
 import net.ltfc.chinaartgallery.base.view.BaseView;
+import net.ltfc.chinaartgallery.model.entities.Painting;
 
 import java.util.List;
 
@@ -11,4 +12,8 @@ public interface SearchView extends BaseView {
     void onHistoryKeysLoaded(List<String> historyKeys);
 
     void onHotKeysLoaded(List<String> hotKeys);
+
+    void onSearchLoaded(List<Painting> paintings);
+
+    void showProgress(boolean show);
 }

@@ -95,6 +95,7 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
 
     @Override
     public void onDestroy() {
+        Log.d("onDestroy", category);
         galleryPresenter.destroy();
         super.onDestroy();
     }
