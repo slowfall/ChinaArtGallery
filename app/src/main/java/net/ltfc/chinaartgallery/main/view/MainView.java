@@ -1,6 +1,6 @@
 package net.ltfc.chinaartgallery.main.view;
 
-import net.ltfc.chinaartgallery.model.entities.MainTab;
+import net.ltfc.chinaartgallery.base.model.entities.MainTab;
 import net.ltfc.chinaartgallery.base.view.BaseView;
 
 import java.util.List;

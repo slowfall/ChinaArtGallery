@@ -7,7 +7,7 @@ import android.util.Log;
 import net.ltfc.chinaartgallery.di.components.ApplicationComponent;
 import net.ltfc.chinaartgallery.di.modules.ApplicationModule;
 import net.ltfc.chinaartgallery.di.components.DaggerApplicationComponent;
-import net.ltfc.chinaartgallery.model.db.SearchKeyDao;
+import net.ltfc.chinaartgallery.base.model.db.SearchKeyDao;
 
 import javax.inject.Inject;
 

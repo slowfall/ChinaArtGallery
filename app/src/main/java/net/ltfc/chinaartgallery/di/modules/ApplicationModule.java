@@ -9,9 +9,9 @@ import com.google.gson.Gson;
 
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.common.ToastUtils;
-import net.ltfc.chinaartgallery.model.db.DaoMaster;
-import net.ltfc.chinaartgallery.model.rest.CAGServerURL;
-import net.ltfc.chinaartgallery.model.rest.CAGService;
+import net.ltfc.chinaartgallery.base.model.db.DaoMaster;
+import net.ltfc.chinaartgallery.base.model.rest.CAGServerURL;
+import net.ltfc.chinaartgallery.base.model.rest.CAGService;
 
 import javax.inject.Singleton;
 

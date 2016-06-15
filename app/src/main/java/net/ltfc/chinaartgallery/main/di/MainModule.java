@@ -2,8 +2,8 @@ package net.ltfc.chinaartgallery.main.di;
 
 import net.ltfc.chinaartgallery.common.ToastUtils;
 import net.ltfc.chinaartgallery.base.rx.BaseSubscriber;
-import net.ltfc.chinaartgallery.model.entities.MainTab;
-import net.ltfc.chinaartgallery.model.entities.Painting;
+import net.ltfc.chinaartgallery.base.model.entities.MainTab;
+import net.ltfc.chinaartgallery.base.model.entities.Painting;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import net.ltfc.chinaartgallery.base.rx.BaseSubscriber;
 import net.ltfc.chinaartgallery.base.rx.OnNextListener;
 import net.ltfc.chinaartgallery.main.view.MainView;
 import net.ltfc.chinaartgallery.main.model.MainTabModel;
-import net.ltfc.chinaartgallery.model.entities.MainTab;
+import net.ltfc.chinaartgallery.base.model.entities.MainTab;
 
 import java.util.List;
 

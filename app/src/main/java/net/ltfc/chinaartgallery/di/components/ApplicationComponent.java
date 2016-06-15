@@ -7,9 +7,8 @@ import com.google.gson.Gson;
 import net.ltfc.chinaartgallery.base.CAGApplication;
 import net.ltfc.chinaartgallery.common.ToastUtils;
 import net.ltfc.chinaartgallery.di.modules.ApplicationModule;
-import net.ltfc.chinaartgallery.base.view.BaseActivity;
-import net.ltfc.chinaartgallery.model.db.DaoMaster;
-import net.ltfc.chinaartgallery.model.rest.CAGService;
+import net.ltfc.chinaartgallery.base.model.db.DaoMaster;
+import net.ltfc.chinaartgallery.base.model.rest.CAGService;
 
 import javax.inject.Singleton;
 

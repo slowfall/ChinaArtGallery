@@ -3,20 +3,15 @@ package net.ltfc.chinaartgallery.main.presenter;
 import net.ltfc.chinaartgallery.base.presenter.Presenter;
 import net.ltfc.chinaartgallery.base.rx.OnNextListener;
 import net.ltfc.chinaartgallery.base.rx.SchedulersCompat;
-import net.ltfc.chinaartgallery.common.ToastUtils;
 import net.ltfc.chinaartgallery.main.view.GalleryView;
 import net.ltfc.chinaartgallery.base.rx.BaseSubscriber;
-import net.ltfc.chinaartgallery.model.entities.Painting;
-import net.ltfc.chinaartgallery.model.rest.CAGService;
+import net.ltfc.chinaartgallery.base.model.entities.Painting;
+import net.ltfc.chinaartgallery.base.model.rest.CAGService;
 
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by zack on 2016/1/13.

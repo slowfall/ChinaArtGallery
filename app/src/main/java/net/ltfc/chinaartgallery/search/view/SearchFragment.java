@@ -22,7 +22,7 @@ import net.ltfc.chinaartgallery.base.Constants;
 import net.ltfc.chinaartgallery.base.view.BaseFragment;
 import net.ltfc.chinaartgallery.common.ToastUtils;
 import net.ltfc.chinaartgallery.main.view.PaintingListAdapter;
-import net.ltfc.chinaartgallery.model.entities.Painting;
+import net.ltfc.chinaartgallery.base.model.entities.Painting;
 import net.ltfc.chinaartgallery.search.di.DaggerSearchComponent;
 import net.ltfc.chinaartgallery.search.di.SearchComponent;
 import net.ltfc.chinaartgallery.search.di.SearchModule;

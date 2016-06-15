@@ -1,10 +1,9 @@
-package net.ltfc.chinaartgallery.model.rest;
+package net.ltfc.chinaartgallery.base.model.rest;
 
-import net.ltfc.chinaartgallery.model.entities.Painting;
+import net.ltfc.chinaartgallery.base.model.entities.Painting;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;

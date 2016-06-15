@@ -1,9 +1,9 @@
 package net.ltfc.chinaartgallery.search.model;
 
 import net.ltfc.chinaartgallery.base.rx.SchedulersCompat;
-import net.ltfc.chinaartgallery.model.db.DaoSession;
-import net.ltfc.chinaartgallery.model.db.SearchKey;
-import net.ltfc.chinaartgallery.model.db.SearchKeyDao;
+import net.ltfc.chinaartgallery.base.model.db.DaoSession;
+import net.ltfc.chinaartgallery.base.model.db.SearchKey;
+import net.ltfc.chinaartgallery.base.model.db.SearchKeyDao;
 
 import java.util.ArrayList;
 import java.util.Collections;

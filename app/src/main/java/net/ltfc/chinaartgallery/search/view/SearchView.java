@@ -1,7 +1,7 @@
 package net.ltfc.chinaartgallery.search.view;
 
 import net.ltfc.chinaartgallery.base.view.BaseView;
-import net.ltfc.chinaartgallery.model.entities.Painting;
+import net.ltfc.chinaartgallery.base.model.entities.Painting;
 
 import java.util.List;
 

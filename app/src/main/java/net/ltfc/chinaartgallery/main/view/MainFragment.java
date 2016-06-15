@@ -14,7 +14,7 @@ import net.ltfc.chinaartgallery.base.view.BaseFragment;
 import net.ltfc.chinaartgallery.main.di.DaggerMainComponent;
 import net.ltfc.chinaartgallery.main.di.MainComponent;
 import net.ltfc.chinaartgallery.main.presenter.MainPresenter;
-import net.ltfc.chinaartgallery.model.entities.MainTab;
+import net.ltfc.chinaartgallery.base.model.entities.MainTab;
 
 import java.util.List;
 

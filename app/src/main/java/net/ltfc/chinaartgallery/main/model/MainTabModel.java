@@ -7,7 +7,7 @@ import com.google.gson.reflect.TypeToken;
 
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.base.rx.SchedulersCompat;
-import net.ltfc.chinaartgallery.model.entities.MainTab;
+import net.ltfc.chinaartgallery.base.model.entities.MainTab;
 import net.ltfc.chinaartgallery.common.Utils;
 
 import java.lang.reflect.Type;
