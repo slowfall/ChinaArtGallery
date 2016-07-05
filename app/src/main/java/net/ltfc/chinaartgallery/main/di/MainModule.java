@@ -1,9 +1,13 @@
 package net.ltfc.chinaartgallery.main.di;
 
+import net.ltfc.chinaartgallery.base.view.OnRecyclerViewItemClickListener;
 import net.ltfc.chinaartgallery.common.ToastUtils;
 import net.ltfc.chinaartgallery.base.rx.BaseSubscriber;
 import net.ltfc.chinaartgallery.base.model.entities.MainTab;
 import net.ltfc.chinaartgallery.base.model.entities.Painting;
+import net.ltfc.chinaartgallery.di.PerFragment;
+import net.ltfc.chinaartgallery.main.view.GalleryFragment;
+import net.ltfc.chinaartgallery.main.view.GalleryView;
 
 import java.util.List;
 
@@ -15,6 +19,21 @@ import dagger.Provides;
  */
 @Module
 public class MainModule {
+    private GalleryFragment galleryFragment;
+
+    public MainModule() {
+
+    }
+
+    public MainModule(GalleryFragment galleryFragment) {
+        this.galleryFragment = galleryFragment;
+    }
+
+    @Provides
+    @PerFragment
+    OnRecyclerViewItemClickListener provideOnRecyclerViewItemClickListener() {
+        return this.galleryFragment;
+    }
 
     @Provides
     BaseSubscriber<List<Painting>> providePaintingsSubscriber(ToastUtils toastUtils) {

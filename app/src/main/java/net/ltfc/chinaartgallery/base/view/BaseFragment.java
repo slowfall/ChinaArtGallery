@@ -25,8 +25,4 @@ public class BaseFragment extends Fragment {
         return new FragmentModule(this);
     }
 
-    protected MainModule getMainModule() {
-        return new MainModule();
-    }
-
 }

@@ -10,6 +10,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.transition.TransitionManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -79,8 +80,10 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
             return false;
         }
         MenuItemCompat.setOnActionExpandListener(searchMenuItem, this);
+        searchView.setQueryHint(getString(R.string.hint_search_view));
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
+        searchView.clearFocus();
         return true;
     }
 
@@ -130,6 +133,7 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
             switchToFragment(searchFragment);
         }
         needRevertToInitialFragment = true;
+        searchView.clearFocus();
     }
 
     private void switchToFragment(Fragment fragment) {
@@ -151,6 +155,9 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             appBarLayout.setElevation(getResources().getDimension(R.dimen.toolbar_elevation_zero));
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            TransitionManager.beginDelayedTransition(frameLayout);
+        }
         getSupportFragmentManager().popBackStackImmediate(MainActivity.BACK_STACK_PREFS,
                 FragmentManager.POP_BACK_STACK_INCLUSIVE);
         if (searchMenuItem != null) {
@@ -160,7 +167,9 @@ public class MainActivity extends BaseActivity implements MenuItemCompat.OnActio
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        Log.d("onQueryTextSubmit", query);
         if (searchFragment != null) {
+            searchView.clearFocus();
             return searchFragment.onQueryTextSubmit(query);
         } else {
             return false;

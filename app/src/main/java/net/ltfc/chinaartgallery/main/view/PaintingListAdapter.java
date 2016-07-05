@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.base.model.entities.Painting;
 import net.ltfc.chinaartgallery.base.model.rest.CAGServerURL;
+import net.ltfc.chinaartgallery.base.view.OnRecyclerViewItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +29,11 @@ import butterknife.ButterKnife;
 public class PaintingListAdapter extends RecyclerView.Adapter<PaintingListAdapter.ViewHolder> {
     private Context context;
     private List<Painting> paintingList = new ArrayList<>();
+    private OnRecyclerViewItemClickListener listener;
 
     @Inject
-    public PaintingListAdapter() {
+    public PaintingListAdapter(OnRecyclerViewItemClickListener listener) {
+        this.listener = listener;
     }
 
     public void setPaintingList(List<Painting> paintingList) {
@@ -39,10 +42,17 @@ public class PaintingListAdapter extends RecyclerView.Adapter<PaintingListAdapte
         notifyDataSetChanged();
     }
 
+    public Painting getItem(int position) {
+        if (paintingList == null || paintingList.size() <= position) {
+            return null;
+        }
+        return paintingList.get(position);
+    }
+
     @Override
     public PaintingListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_gallery_item, parent, false);
-        ViewHolder holder = new ViewHolder(v);
+        ViewHolder holder = new ViewHolder(this, v, this.listener);
         this.context = parent.getContext();
         return holder;
     }
@@ -64,7 +74,7 @@ public class PaintingListAdapter extends RecyclerView.Adapter<PaintingListAdapte
         return paintingList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @Bind(R.id.imageView)
         ImageView imageView;
         @Bind(R.id.paintingNameText)
@@ -75,10 +85,20 @@ public class PaintingListAdapter extends RecyclerView.Adapter<PaintingListAdapte
         TextView authorText;
         @Bind(R.id.resourceLevelText)
         TextView resourceLevelText;
+        RecyclerView.Adapter adapter;
+        OnRecyclerViewItemClickListener listener;
 
-        public ViewHolder(View view) {
+        public ViewHolder(RecyclerView.Adapter adapter, View view, OnRecyclerViewItemClickListener listener) {
             super(view);
             ButterKnife.bind(this, view);
+            this.adapter = adapter;
+            this.listener = listener;
+            view.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onItemClick(adapter, v, getLayoutPosition(), getItemId());
         }
     }
 }

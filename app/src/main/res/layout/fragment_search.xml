@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/searchHistoryView"
+            android:id="@+id/searchHotView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -22,7 +22,7 @@
             tools:listitem="@layout/list_search_suggestion_item" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/searchHotView"
+            android:id="@+id/searchHistoryView"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"

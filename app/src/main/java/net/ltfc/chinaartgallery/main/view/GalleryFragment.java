@@ -1,5 +1,6 @@
 package net.ltfc.chinaartgallery.main.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,8 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import net.ltfc.chinaartgallery.R;
+import net.ltfc.chinaartgallery.base.Constants;
+import net.ltfc.chinaartgallery.base.view.OnRecyclerViewItemClickListener;
+import net.ltfc.chinaartgallery.detail.view.DetailActivity;
 import net.ltfc.chinaartgallery.main.di.DaggerMainComponent;
 import net.ltfc.chinaartgallery.main.di.MainComponent;
+import net.ltfc.chinaartgallery.main.di.MainModule;
 import net.ltfc.chinaartgallery.main.presenter.GalleryPresenter;
 import net.ltfc.chinaartgallery.base.model.entities.Painting;
 import net.ltfc.chinaartgallery.base.view.BaseFragment;
@@ -26,7 +31,8 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class GalleryFragment extends BaseFragment implements GalleryView, SwipeRefreshLayout.OnRefreshListener {
+public class GalleryFragment extends BaseFragment implements GalleryView, SwipeRefreshLayout.OnRefreshListener,
+        OnRecyclerViewItemClickListener {
     private static String CATEGORY = "category";
     @Inject
     GalleryPresenter galleryPresenter;
@@ -57,7 +63,7 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .fragmentModule(getFragmentModule())
-                .mainModule(getMainModule())
+                .mainModule(new MainModule(this))
                 .build();
         mainComponent.inject(this);
     }
@@ -127,5 +133,14 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
     @Override
     public void onRefresh() {
         galleryPresenter.loadPaintingList(category);
+    }
+
+    @Override
+    public void onItemClick(RecyclerView.Adapter adapter, View view, int position, long id) {
+        Log.d("onItemClick", "position:" + position + ", id:" + id);
+        Painting painting = paintingListAdapter.getItem(position);
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(Constants.KEY_PAINTING, painting);
+        startActivity(intent);
     }
 }

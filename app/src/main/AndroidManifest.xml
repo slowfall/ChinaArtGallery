@@ -22,7 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".base.view.WebViewActivity"></activity>
+        <activity android:name=".base.view.WebViewActivity" />
+        <activity
+            android:name=".detail.view.DetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.base.view.BaseFragment;
 import net.ltfc.chinaartgallery.main.di.DaggerMainComponent;
 import net.ltfc.chinaartgallery.main.di.MainComponent;
+import net.ltfc.chinaartgallery.main.di.MainModule;
 import net.ltfc.chinaartgallery.main.presenter.MainPresenter;
 import net.ltfc.chinaartgallery.base.model.entities.MainTab;
 
@@ -41,7 +42,7 @@ public class MainFragment extends BaseFragment implements MainView {
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .fragmentModule(getFragmentModule())
-                .mainModule(getMainModule())
+                .mainModule(new MainModule())
                 .build();
         mainComponent.inject(this);
         mainPresenter.attachView(this);

@@ -1,11 +1,14 @@
 package net.ltfc.chinaartgallery.base.model.entities;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
  * Created by zack on 2016/1/9.
  */
-public class Painting {
+public class Painting implements Parcelable {
     /**
      * _id : 5595e706aeae078967515264
      * active : true
@@ -89,6 +92,54 @@ public class Painting {
 
     private SizeEntity size;
     private List<String> tags;
+
+    protected Painting(Parcel in) {
+        _id = in.readString();
+        active = in.readByte() != 0;
+        activeSort = in.readString();
+        activeTime = in.readString();
+        advDesc = in.readString();
+        advUrl = in.readString();
+        age = in.readString();
+        areaSize = in.readString();
+        author = in.readString();
+        comment = in.readString();
+        commented = in.readByte() != 0;
+        desc = in.readString();
+        descUrl = in.readString();
+        essence = in.readByte() != 0;
+        essenceComment = in.readString();
+        essenceSort = in.readString();
+        fileSize = in.readString();
+        maxlevel = in.readInt();
+        mediaType = in.readString();
+        minlevel = in.readInt();
+        mylove = in.readByte() != 0;
+        myloveSort = in.readString();
+        offlineUrl = in.readString();
+        originalUrl = in.readString();
+        overallLevel = in.readString();
+        ownerName = in.readString();
+        paintingName = in.readString();
+        pixels = in.readString();
+        resourceLevel = in.readString();
+        updateTime = in.readString();
+        utime = in.readString();
+        viewCnt = in.readInt();
+        tags = in.createStringArrayList();
+    }
+
+    public static final Creator<Painting> CREATOR = new Creator<Painting>() {
+        @Override
+        public Painting createFromParcel(Parcel in) {
+            return new Painting(in);
+        }
+
+        @Override
+        public Painting[] newArray(int size) {
+            return new Painting[size];
+        }
+    };
 
     public void set_id(String _id) {
         this._id = _id;
@@ -368,6 +419,48 @@ public class Painting {
 
     public List<String> getTags() {
         return tags;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(_id);
+        dest.writeByte((byte) (active ? 1 : 0));
+        dest.writeString(activeSort);
+        dest.writeString(activeTime);
+        dest.writeString(advDesc);
+        dest.writeString(advUrl);
+        dest.writeString(age);
+        dest.writeString(areaSize);
+        dest.writeString(author);
+        dest.writeString(comment);
+        dest.writeByte((byte) (commented ? 1 : 0));
+        dest.writeString(desc);
+        dest.writeString(descUrl);
+        dest.writeByte((byte) (essence ? 1 : 0));
+        dest.writeString(essenceComment);
+        dest.writeString(essenceSort);
+        dest.writeString(fileSize);
+        dest.writeInt(maxlevel);
+        dest.writeString(mediaType);
+        dest.writeInt(minlevel);
+        dest.writeByte((byte) (mylove ? 1 : 0));
+        dest.writeString(myloveSort);
+        dest.writeString(offlineUrl);
+        dest.writeString(originalUrl);
+        dest.writeString(overallLevel);
+        dest.writeString(ownerName);
+        dest.writeString(paintingName);
+        dest.writeString(pixels);
+        dest.writeString(resourceLevel);
+        dest.writeString(updateTime);
+        dest.writeString(utime);
+        dest.writeInt(viewCnt);
+        dest.writeStringList(tags);
     }
 
     public static class SnapSizeEntity {

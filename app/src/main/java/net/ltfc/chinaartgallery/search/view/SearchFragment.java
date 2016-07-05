@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +21,9 @@ import android.widget.ProgressBar;
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.base.Constants;
 import net.ltfc.chinaartgallery.base.view.BaseFragment;
+import net.ltfc.chinaartgallery.base.view.OnRecyclerViewItemClickListener;
 import net.ltfc.chinaartgallery.common.ToastUtils;
+import net.ltfc.chinaartgallery.detail.view.DetailActivity;
 import net.ltfc.chinaartgallery.main.view.PaintingListAdapter;
 import net.ltfc.chinaartgallery.base.model.entities.Painting;
 import net.ltfc.chinaartgallery.search.di.DaggerSearchComponent;
@@ -37,7 +40,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SearchFragment extends BaseFragment implements SearchView, OnRecyclerViewItemClick,
-        android.support.v7.widget.SearchView.OnQueryTextListener, android.support.v7.widget.SearchView.OnCloseListener {
+        android.support.v7.widget.SearchView.OnQueryTextListener, android.support.v7.widget.SearchView.OnCloseListener,
+        OnRecyclerViewItemClickListener {
     @Inject
     ToastUtils toastUtils;
     @Inject
@@ -236,7 +240,16 @@ public class SearchFragment extends BaseFragment implements SearchView, OnRecycl
         return true;
     }
 
-    public interface OnSearchKeyClickListener{
+    @Override
+    public void onItemClick(RecyclerView.Adapter adapter, View view, int position, long id) {
+        Log.d("onItemClick", "position:" + position + ", id:" + id);
+        Painting painting = searchResultAdapter.getItem(position);
+        Intent intent = new Intent(getContext(), DetailActivity.class);
+        intent.putExtra(Constants.KEY_PAINTING, painting);
+        startActivity(intent);
+    }
+
+    public interface OnSearchKeyClickListener {
         void onSearchKeyClick(String searchKey);
     }
 }

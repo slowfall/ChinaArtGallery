@@ -2,6 +2,7 @@ package net.ltfc.chinaartgallery.search.di;
 
 import net.ltfc.chinaartgallery.base.Constants;
 import net.ltfc.chinaartgallery.base.rx.BaseSubscriber;
+import net.ltfc.chinaartgallery.base.view.OnRecyclerViewItemClickListener;
 import net.ltfc.chinaartgallery.common.ToastUtils;
 import net.ltfc.chinaartgallery.di.PerFragment;
 import net.ltfc.chinaartgallery.base.model.db.DaoMaster;
@@ -31,7 +32,13 @@ public class SearchModule {
 
     @Provides
     @PerFragment
-    OnRecyclerViewItemClick provideOnRecyclerViewItemClickListener() {
+    OnRecyclerViewItemClick provideOnRecyclerViewItemClick() {
+        return this.searchFragment;
+    }
+
+    @Provides
+    @PerFragment
+    OnRecyclerViewItemClickListener provideOnRecyclerViewItemClickListener() {
         return this.searchFragment;
     }
 

@@ -15,5 +15,5 @@ import dagger.Component;
 @PerFragment
 @Component(dependencies = {ApplicationComponent.class}, modules = {ActivityModule.class, FragmentModule.class, SearchModule.class})
 public interface SearchComponent extends FragmentComponent {
-    void inject(SearchFragment mainFragment);
+    void inject(SearchFragment searchFragment);
 }

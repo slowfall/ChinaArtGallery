@@ -1,6 +1,5 @@
 package net.ltfc.chinaartgallery.main.di;
 
-import net.ltfc.chinaartgallery.di.PerActivity;
 import net.ltfc.chinaartgallery.di.PerFragment;
 import net.ltfc.chinaartgallery.di.components.ApplicationComponent;
 import net.ltfc.chinaartgallery.di.components.FragmentComponent;
