@@ -1,5 +1,7 @@
 package net.ltfc.chinaartgallery.detail.di;
 
+import net.ltfc.chinaartgallery.detail.view.DetailFragment;
+
 import dagger.Module;
 
 /**
@@ -7,4 +9,8 @@ import dagger.Module;
  */
 @Module
 public class DetailModule {
+    private DetailFragment detailFragment;
+    public DetailModule(DetailFragment detailFragment) {
+        this.detailFragment = detailFragment;
+    }
 }

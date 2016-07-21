@@ -32,7 +32,7 @@ public class ToastUtils {
     }
 
     private void show(CharSequence s, int duration) {
-        toast.cancel();
+//        toast.cancel();
         toast.setText(s);
         toast.setDuration(duration);
         toast.show();

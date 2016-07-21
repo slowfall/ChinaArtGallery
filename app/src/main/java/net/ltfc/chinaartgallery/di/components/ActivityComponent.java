@@ -3,8 +3,10 @@ package net.ltfc.chinaartgallery.di.components;
 import android.app.Activity;
 
 import net.ltfc.chinaartgallery.base.view.BaseActivity;
+import net.ltfc.chinaartgallery.detail.view.DetailActivity;
 import net.ltfc.chinaartgallery.di.modules.ActivityModule;
 import net.ltfc.chinaartgallery.di.PerActivity;
+import net.ltfc.chinaartgallery.main.view.MainActivity;
 
 import dagger.Component;
 
@@ -14,6 +16,7 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = ApplicationComponent.class, modules = ActivityModule.class)
 public interface ActivityComponent {
-    void inject(BaseActivity baseActivity);
+    void inject(MainActivity baseActivity);
+    void inject(DetailActivity baseActivity);
     Activity activity();
 }

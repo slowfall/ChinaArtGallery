@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     tools:context="net.ltfc.chinaartgallery.detail.view.DetailFragment">
 
-    <WebView
+    <net.ltfc.chinaartgallery.detail.view.DetailContent
         android:id="@+id/wvContent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="visible"/>
 </FrameLayout>
