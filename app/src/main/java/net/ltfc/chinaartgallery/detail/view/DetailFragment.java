@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,13 +32,12 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends BaseFragment implements DetailView, View.OnSystemUiVisibilityChangeListener {
+public class DetailFragment extends BaseFragment implements DetailView {
     @Inject
     ToastUtils toastUtils;
     private Painting painting;
     @Bind(R.id.wvContent)
     DetailContent wvContent;
-    int lastSystemUiVis;
 
     public static DetailFragment newInstance(Bundle args) {
         DetailFragment detailFragment = new DetailFragment();
@@ -83,25 +83,9 @@ public class DetailFragment extends BaseFragment implements DetailView, View.OnS
     }
 
     private void initWebView(WebView webView) {
-        webView.setOnSystemUiVisibilityChangeListener(this);
         webView.setWebViewClient(new WebViewClient());
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
     }
 
-    @Override
-    public void onSystemUiVisibilityChange(int visibility) {
-        Log.i("DetailFragment", "visibility:" + visibility);
-        // Detect when we go out of low-profile mode, to also go out
-        // of full screen.  We only do this when the low profile mode
-        // is changing from its last state, and turning off.
-        int diff = lastSystemUiVis ^ visibility;
-        lastSystemUiVis = visibility;
-        if ((diff & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0
-                && (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-        } else {
-            ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-        }
-    }
 }

@@ -20,13 +20,6 @@ public class DetailContent extends WebView implements GestureDetector.OnGestureL
 //            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
 //            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
     private int baseSystemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
-    private int lastSystemUiVis;
-    private Runnable navHider = new Runnable() {
-        @Override
-        public void run() {
-            setNavVisibility(false);
-        }
-    };
     private GestureDetectorCompat detector;
 
     public DetailContent(Context context, AttributeSet attrs) {
