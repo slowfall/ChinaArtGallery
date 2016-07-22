@@ -2,6 +2,7 @@ package net.ltfc.chinaartgallery.detail.view;
 
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
 import android.support.v7.view.ViewPropertyAnimatorCompatSet;
@@ -29,15 +30,17 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DetailActivity extends BaseActivity implements View.OnSystemUiVisibilityChangeListener {
+public class DetailActivity extends BaseActivity implements View.OnSystemUiVisibilityChangeListener, View.OnClickListener {
     @Inject
     ToastUtils toastUtils;
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
     @Bind(R.id.appBarLayout)
     AppBarLayout appBarLayout;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
     @Bind(R.id.frameLayout)
     FrameLayout frameLayout;
+    @Bind(R.id.fab)
+    FloatingActionButton fab;
 
     private DetailFragment detailFragment;
     private ActivityComponent activityComponent;
@@ -54,8 +57,9 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
 
         setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         frameLayout.setOnSystemUiVisibilityChangeListener(this);
+        setSupportActionBar(toolbar);
+        fab.setOnClickListener(this);
         StatusBarCompat.compat(this, getResources().getColor(R.color.colorPrimaryDark));
         if (savedInstanceState == null) {
             Bundle bundle = getIntent().getExtras();
@@ -96,9 +100,11 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
         if ((diff & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0
                 && (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
             showTitleBar(appBarLayout);
+            fab.show();
         } else {
             hideTitleBar(appBarLayout);
 //            appBarLayout.setVisibility(View.GONE);
+            fab.hide();
         }
     }
 
@@ -132,5 +138,10 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
 //        anim.setListener(mHideListener);
 //        mCurrentShowAnim = anim;
         anim.start();
+    }
+
+    @Override
+    public void onClick(View v) {
+        toastUtils.showShort("share");
     }
 }

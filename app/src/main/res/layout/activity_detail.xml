@@ -25,4 +25,15 @@
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_main" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:elevation="@dimen/fab_elevation_default"
+        android:src="@drawable/ic_share_white"
+        app:layout_behavior="com.support.android.designlibdemo.ScrollAwareFABBehavior"
+        app:pressedTranslationZ="@dimen/fab_elevation_pressed" />
 </FrameLayout>
