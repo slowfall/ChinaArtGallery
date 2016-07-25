@@ -1,10 +1,14 @@
 package net.ltfc.chinaartgallery.detail.view;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPropertyAnimatorCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.view.ViewPropertyAnimatorCompatSet;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -46,6 +50,7 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
     private ActivityComponent activityComponent;
     private int lastSystemUiVis;
 
+    private static final int SHOW_HIDE_ANIM_DURATION = 250;
     private static final Interpolator sHideInterpolator = new AccelerateInterpolator();
     private static final Interpolator sShowInterpolator = new DecelerateInterpolator();
 
@@ -56,29 +61,46 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
 
         setContentView(R.layout.activity_detail);
+        StatusBarCompat.compat(this, getResources().getColor(R.color.colorPrimaryDark));
+
+        initializeInjector();
+
         ButterKnife.bind(this);
         frameLayout.setOnSystemUiVisibilityChangeListener(this);
         setSupportActionBar(toolbar);
         fab.setOnClickListener(this);
-        StatusBarCompat.compat(this, getResources().getColor(R.color.colorPrimaryDark));
-        if (savedInstanceState == null) {
-            Bundle bundle = getIntent().getExtras();
-            detailFragment = DetailFragment.newInstance(bundle);
-            getSupportFragmentManager().beginTransaction().
-                    add(R.id.frameLayout, detailFragment).commit();
-            if (bundle != null) {
-                Painting painting = bundle.getParcelable(Constants.KEY_PAINTING);
-                if (painting != null) {
-                    String paintingName = painting.getPaintingName();
-                    if (!TextUtils.isEmpty(paintingName)) {
-                        getSupportActionBar().setTitle(paintingName);
-                    }
-                }
-            }
+        fab.getSystemUiVisibility();
+        setFabLocation(fab, getResources().getConfiguration().orientation);
+
+        Painting painting = null;
+        Bundle bundle = getIntent().getExtras();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        detailFragment = DetailFragment.newInstance(bundle);
+        fragmentManager.beginTransaction().add(R.id.frameLayout, detailFragment, "detail").commit();
+
+        if (bundle != null) {
+            painting = bundle.getParcelable(Constants.KEY_PAINTING);
         }
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setShowHideAnimationEnabled(true);
-        initializeInjector();
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null && painting != null) {
+            String paintingName = painting.getPaintingName();
+            if (!TextUtils.isEmpty(paintingName)) {
+                actionBar.setTitle(paintingName);
+            }
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setShowHideAnimationEnabled(true);
+        }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            toastUtils.showShort("landscape");
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            toastUtils.showShort("portrait");
+        }
     }
 
     private void initializeInjector() {
@@ -91,7 +113,7 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
 
     @Override
     public void onSystemUiVisibilityChange(int visibility) {
-        Log.i("DetailFragment", "visibility:" + visibility);
+        Log.i("DetailActivity", "visibility:" + visibility);
         // Detect when we go out of low-profile mode, to also go out
         // of full screen.  We only do this when the low profile mode
         // is changing from its last state, and turning off.
@@ -103,7 +125,6 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
             fab.show();
         } else {
             hideTitleBar(appBarLayout);
-//            appBarLayout.setVisibility(View.GONE);
             fab.hide();
         }
     }
@@ -118,10 +139,9 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
         ViewCompat.setTranslationY(titleBar, startingY);
         ViewPropertyAnimatorCompatSet anim = new ViewPropertyAnimatorCompatSet();
         ViewPropertyAnimatorCompat a = ViewCompat.animate(titleBar).translationY(0f);
-//        a.setUpdateListener(mUpdateListener);
         anim.play(a);
         anim.setInterpolator(sShowInterpolator);
-        anim.setDuration(250);
+        anim.setDuration(SHOW_HIDE_ANIM_DURATION);
         anim.start();
     }
 
@@ -134,10 +154,35 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
         endingY -= topLeft[1];
         ViewPropertyAnimatorCompat a = ViewCompat.animate(titleBar).translationY(endingY);
         anim.setInterpolator(sHideInterpolator);
-        anim.setDuration(250);
-//        anim.setListener(mHideListener);
-//        mCurrentShowAnim = anim;
+        anim.setDuration(SHOW_HIDE_ANIM_DURATION);
         anim.start();
+    }
+
+    private void setFabLocation(FloatingActionButton fab, int orientation) {
+        int navBarHeight = navBarHeight(getResources());
+        if (hasNavBar(getResources())) {
+            return;
+        }
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) fab.getLayoutParams();
+        int margin = getResources().getDimensionPixelSize(R.dimen.fab_margin);
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            lp.setMargins(margin, margin, margin, margin + navBarHeight);
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            lp.setMargins(margin, margin, margin + navBarHeight, margin);
+        }
+    }
+
+    public boolean hasNavBar(Resources resources) {
+        int id = resources.getIdentifier("config_showNavigationBar", "bool", "android");
+        return id > 0 && resources.getBoolean(id);
+    }
+
+    public int navBarHeight(Resources resources) {
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return resources.getDimensionPixelSize(resourceId);
+        }
+        return 0;
     }
 
     @Override

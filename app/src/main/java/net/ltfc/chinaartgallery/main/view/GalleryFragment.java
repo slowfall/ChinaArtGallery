@@ -54,7 +54,7 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.d("onCreate", getArguments().toString());
+        Log.i("onCreate", getArguments().toString());
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             category = getArguments().getString(CATEGORY);
@@ -71,7 +71,7 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("onCreateView", category);
+        Log.i("onCreateView", category);
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
         ButterKnife.bind(this, view);
 
@@ -88,44 +88,44 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("onResume", category);
+        Log.i("onResume", category);
         setUserVisibleHint(true);
     }
 
     @Override
     public void onDestroyView() {
-        Log.d("onDestroyView", category);
+        Log.i("onDestroyView", category);
         ButterKnife.unbind(this);
         super.onDestroyView();
     }
 
     @Override
     public void onDestroy() {
-        Log.d("onDestroy", category);
+        Log.i("onDestroy", category);
         galleryPresenter.destroy();
         super.onDestroy();
     }
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-        Log.d("setUserVisibleHint", category + ", isVisibleToUser:" + isVisibleToUser);
+        Log.i("setUserVisibleHint", category + ", isVisibleToUser:" + isVisibleToUser);
         super.setUserVisibleHint(isVisibleToUser);
         if (paintingListAdapter != null && paintingListAdapter.getItemCount() == 0
                 && isVisibleToUser && isVisible()) {
-            Log.d("setUserVisibleHint", category + " is loading.");
+            Log.i("setUserVisibleHint", category + " is loading.");
             galleryPresenter.loadPaintingList(category);
         }
     }
 
     @Override
     public void onLoading() {
-        Log.d("onLoading", "category:" + category);
+        Log.i("onLoading", "category:" + category);
         swipeRefresh.setRefreshing(true);
     }
 
     @Override
     public void onLoaded(List<Painting> paintingList) {
-        Log.d("onLoaded", "category:" + category);
+        Log.i("onLoaded", "category:" + category);
         paintingListAdapter.setPaintingList(paintingList);
         swipeRefresh.setRefreshing(false);
     }
@@ -137,7 +137,7 @@ public class GalleryFragment extends BaseFragment implements GalleryView, SwipeR
 
     @Override
     public void onItemClick(RecyclerView.Adapter adapter, View view, int position, long id) {
-        Log.d("onItemClick", "position:" + position + ", id:" + id);
+        Log.i("onItemClick", "position:" + position + ", id:" + id);
         Painting painting = paintingListAdapter.getItem(position);
         Intent intent = new Intent(getContext(), DetailActivity.class);
         intent.putExtra(Constants.KEY_PAINTING, painting);

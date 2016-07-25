@@ -34,6 +34,7 @@
         android:layout_margin="@dimen/fab_margin"
         android:elevation="@dimen/fab_elevation_default"
         android:src="@drawable/ic_share_white"
-        app:layout_behavior="com.support.android.designlibdemo.ScrollAwareFABBehavior"
-        app:pressedTranslationZ="@dimen/fab_elevation_pressed" />
+        app:backgroundTint="@color/fabColorAccent"
+        app:pressedTranslationZ="@dimen/fab_elevation_pressed"
+        app:rippleColor="@color/fabColorAccentHeight" />
 </FrameLayout>

@@ -51,6 +51,7 @@ public class DetailFragment extends BaseFragment implements DetailView {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.i("DetailFragment", "onCreate");
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             painting = getArguments().getParcelable(Constants.KEY_PAINTING);
@@ -66,6 +67,7 @@ public class DetailFragment extends BaseFragment implements DetailView {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("DetailFragment", "onCreateView");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_detail, container, false);
         ButterKnife.bind(this, view);
