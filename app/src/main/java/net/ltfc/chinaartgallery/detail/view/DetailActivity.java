@@ -72,7 +72,6 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
         frameLayout.setOnSystemUiVisibilityChangeListener(this);
         setSupportActionBar(toolbar);
         fab.setOnClickListener(this);
-        fab.getSystemUiVisibility();
         setFabLocation(fab, getResources().getConfiguration().orientation);
 
         Painting painting = null;
@@ -121,10 +120,12 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
         if ((diff & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0
                 && (visibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0) {
             showTitleBar(appBarLayout);
-            fab.show();
+            //for next version
+            //fab.show();
         } else {
             hideTitleBar(appBarLayout);
-            fab.hide();
+            //for next version
+            //fab.hide();
         }
     }
 
@@ -158,6 +159,9 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
     }
 
     private void setFabLocation(FloatingActionButton fab, int orientation) {
+        //hide fab, for next version
+        fab.setVisibility(View.GONE);
+
         int navBarHeight = navBarHeight(getResources());
         if (hasNavBar(getResources())) {
             return;

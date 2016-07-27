@@ -36,5 +36,6 @@
         android:src="@drawable/ic_share_white"
         app:backgroundTint="@color/fabColorAccent"
         app:pressedTranslationZ="@dimen/fab_elevation_pressed"
-        app:rippleColor="@color/fabColorAccentHeight" />
+        app:rippleColor="@color/fabColorAccentHeight"
+        android:visibility="gone"/>
 </FrameLayout>
