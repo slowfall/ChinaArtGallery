@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/share_weixin"
+        android:icon="@drawable/umeng_socialize_wechat"
+        android:title="@string/title_share_weixin" />
+    <item
+        android:id="@+id/share_weixincircle"
+        android:icon="@drawable/umeng_socialize_wxcircle"
+        android:title="@string/title_share_weixincircle" />
+    <item
+        android:id="@+id/share_sina_weibo"
+        android:icon="@drawable/umeng_socialize_sina_on"
+        android:title="@string/title_share_sina_weibo" />
+    <item
+        android:id="@+id/share_qq"
+        android:icon="@drawable/umeng_socialize_qq_on"
+        android:title="@string/title_share_qq" />
+
+    <item
+        android:id="@+id/share_qzone"
+        android:icon="@drawable/umeng_socialize_qzone_on"
+        android:title="@string/title_share_qzone" />
+</menu>

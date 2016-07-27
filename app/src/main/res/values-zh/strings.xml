@@ -6,4 +6,10 @@
     <string name="action_help_and_feedback">帮助及反馈</string>
     <string name="tips_input_search_keyword">请输入搜索关键词</string>
     <string name="hint_search_view">人名、作品名或朝代等</string>
+    <string name="title_share_weixin">微信</string>
+    <string name="title_share_weixincircle">朋友圈</string>
+    <string name="title_share_sina_weibo">新浪微博</string>
+    <string name="title_share_qq">QQ</string>
+    <string name="title_share_qzone">QQ空间</string>
+    <string name="title_share_title">分享到</string>
 </resources>

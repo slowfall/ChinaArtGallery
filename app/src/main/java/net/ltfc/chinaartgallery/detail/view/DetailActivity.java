@@ -13,12 +13,17 @@ import android.support.v7.view.ViewPropertyAnimatorCompatSet;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
+
+import com.cocosw.bottomsheet.BottomSheet;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import net.ltfc.chinaartgallery.R;
 import net.ltfc.chinaartgallery.base.Constants;
@@ -34,7 +39,7 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class DetailActivity extends BaseActivity implements View.OnSystemUiVisibilityChangeListener, View.OnClickListener {
+public class DetailActivity extends BaseActivity implements View.OnSystemUiVisibilityChangeListener, View.OnClickListener, MenuItem.OnMenuItemClickListener {
     @Inject
     ToastUtils toastUtils;
     @Bind(R.id.appBarLayout)
@@ -46,8 +51,6 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
     @Bind(R.id.fab)
     FloatingActionButton fab;
 
-    private DetailFragment detailFragment;
-    private ActivityComponent activityComponent;
     private int lastSystemUiVis;
 
     private static final int SHOW_HIDE_ANIM_DURATION = 250;
@@ -75,8 +78,7 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
         Painting painting = null;
         Bundle bundle = getIntent().getExtras();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        detailFragment = DetailFragment.newInstance(bundle);
-        fragmentManager.beginTransaction().add(R.id.frameLayout, detailFragment, "detail").commit();
+        fragmentManager.beginTransaction().add(R.id.frameLayout, DetailFragment.newInstance(bundle), "detail").commit();
 
         if (bundle != null) {
             painting = bundle.getParcelable(Constants.KEY_PAINTING);
@@ -104,7 +106,7 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
     }
 
     private void initializeInjector() {
-        activityComponent = DaggerActivityComponent.builder()
+        ActivityComponent activityComponent = DaggerActivityComponent.builder()
                 .applicationComponent(getApplicationComponent())
                 .activityModule(getActivityModule())
                 .build();
@@ -114,9 +116,6 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
     @Override
     public void onSystemUiVisibilityChange(int visibility) {
         Log.i("DetailActivity", "visibility:" + visibility);
-        // Detect when we go out of low-profile mode, to also go out
-        // of full screen.  We only do this when the low profile mode
-        // is changing from its last state, and turning off.
         int diff = lastSystemUiVis ^ visibility;
         lastSystemUiVis = visibility;
         if ((diff & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0
@@ -187,6 +186,37 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
 
     @Override
     public void onClick(View v) {
-        toastUtils.showShort("share");
+        new BottomSheet.Builder(this)
+                .sheet(R.menu.share_grid)
+                .grid()
+                .listener(this)
+                .show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        ShareAction shareAction = new ShareAction(this);
+        switch (item.getItemId()) {
+            case R.id.share_weixin:
+                shareAction.setPlatform(SHARE_MEDIA.WEIXIN);
+                break;
+            case R.id.share_weixincircle:
+                shareAction.setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE);
+                break;
+            case R.id.share_sina_weibo:
+                shareAction.setPlatform(SHARE_MEDIA.SINA);
+                break;
+            case R.id.share_qq:
+                shareAction.setPlatform(SHARE_MEDIA.QQ);
+                break;
+            case R.id.share_qzone:
+                shareAction.setPlatform(SHARE_MEDIA.QZONE);
+                break;
+        }
+        toastUtils.showShort("onClick which:" + item.getTitle());
+        if (shareAction.getPlatform() != null) {
+
+        }
+        return false;
     }
 }

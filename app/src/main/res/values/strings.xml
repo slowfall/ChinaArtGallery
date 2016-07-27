@@ -6,6 +6,12 @@
     <string name="tips_input_search_keyword">Please input keyword</string>
     <string name="hint_search_view">name/title/dynasty</string>
 
+    <string name="title_share_weixin">wechat</string>
+    <string name="title_share_weixincircle">wechat circle</string>
+    <string name="title_share_sina_weibo">sina weibo</string>
+    <string name="title_share_qq">QQ</string>
+    <string name="title_share_qzone">QZone</string>
+    <string name="title_share_title">Share To</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
