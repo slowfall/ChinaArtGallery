@@ -45,4 +45,5 @@ dependencies {
     compile 'com.google.dagger:dagger:2.0.2'
     compile 'com.cocosw:bottomsheet:1.+@aar'
     compile project(':social_sdk_library_project')
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

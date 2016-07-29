@@ -22,6 +22,7 @@ import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 
 import com.cocosw.bottomsheet.BottomSheet;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
@@ -92,6 +93,12 @@ public class DetailActivity extends BaseActivity implements View.OnSystemUiVisib
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setShowHideAnimationEnabled(true);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onEvent(this, Constants.KEY_BIG_IMAGE_LOAD);
     }
 
     @Override

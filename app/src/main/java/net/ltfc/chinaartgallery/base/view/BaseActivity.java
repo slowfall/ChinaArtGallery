@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
+import com.umeng.analytics.MobclickAgent;
+
 import net.ltfc.chinaartgallery.base.CAGApplication;
 import net.ltfc.chinaartgallery.di.components.ApplicationComponent;
 import net.ltfc.chinaartgallery.di.modules.ActivityModule;
@@ -16,6 +18,18 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override
