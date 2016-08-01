@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
  */
 public class Utils {
 
-    public static String readRawFile(Context context, int rawId){
+    public static String readRawFile(Context context, int rawId) {
         try {
             InputStream inputStream = context.getResources().openRawResource(rawId);
             InputStreamReader reader = new InputStreamReader(inputStream);
